@@ -13,26 +13,26 @@ import com.kwabenaberko.newsapilib.models.response.ArticleResponse
 class NewsViewModel : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
-    val articles:LiveData<List<Article>> = _articles
+    val articles: LiveData<List<Article>> = _articles
 
-   init{
-       fetchCybersecurityNews()
-   }
+    init {
+        fetchCybersecurityNews()
+    }
 
     private fun fetchCybersecurityNews() {
 
-       val newsApiClient = NewsApiClient(Constant.apiKey)
-       val request = EverythingRequest.Builder().q("cybersecurity").language("en").build()
+        val newsApiClient = NewsApiClient(Constant.apiKey)
+        val request = EverythingRequest.Builder().q("cybersecurity").language("en").build()
 
         newsApiClient.getEverything(request, object : NewsApiClient.ArticlesResponseCallback {
             override fun onSuccess(response: ArticleResponse?) {
-                response?.articles?.let{
+                response?.articles?.let {
                     _articles.postValue(it)
                 }
             }
 
             override fun onFailure(throwable: Throwable?) {
-                if(throwable!=null){
+                if (throwable != null) {
                     Log.i("NewsApi Response Failed", throwable.localizedMessage)
                 }
             }

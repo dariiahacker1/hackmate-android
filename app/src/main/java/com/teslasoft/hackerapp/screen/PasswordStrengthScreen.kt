@@ -17,8 +17,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -68,6 +66,7 @@ fun getSHA1(input: String): String {
         throw RuntimeException(e)
     }
 }
+
 fun checkPwnedPassword(password: String): Int {
     return try {
         val hash = getSHA1(password)
@@ -169,7 +168,6 @@ fun PasswordStrengthScreen(
             modifier = Modifier
                 .fillMaxWidth(),
             value = password.value,
-            readOnly = testStarted.value,
             visualTransformation = PasswordVisualTransformation(),
             placeholder = {
                 Text(
@@ -195,24 +193,7 @@ fun PasswordStrengthScreen(
             )
         )
 
-        if (!testStarted.value) {
-            Button(modifier = Modifier
-                .align(Alignment.Start)
-                .height(50.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                onClick = {
-                    testStarted.value = true
-                }) {
-                Text(
-                    text = "Test", style = TextStyle(
-                        fontSize = 18.sp, color = MaterialTheme.colorScheme.background
-                    ), fontFamily = FontFamily(Font(R.font.alata_regular)),
-                    fontWeight = FontWeight(500)
-                )
-            }
-        }
-
-        if (testStarted.value) {
+        if (password.value.isNotEmpty()) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -372,6 +353,7 @@ fun PasswordStrengthScreen(
                             fontFamily = FontFamily(Font(R.font.alata_regular))
                         )
                     }
+
                     breachCount.value == 0 -> {
                         Text(
                             text = "No breaches found!",
@@ -381,6 +363,7 @@ fun PasswordStrengthScreen(
                             fontWeight = FontWeight(500)
                         )
                     }
+
                     breachCount.value > 0 -> {
                         Text(
                             text = "Breached ${breachCount.value} times!",
@@ -395,7 +378,6 @@ fun PasswordStrengthScreen(
             }
 
         }
-
 
     }
 }

@@ -87,10 +87,10 @@ dependencies {
     implementation(libs.coil.network.okhttp)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
-    implementation("com.journeyapps:zxing-android-embedded:4.1.0")
-    implementation("com.google.code.gson:gson:2.11.0")
+    implementation(libs.zxing.android.embedded)
+    implementation(libs.gson)
 
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
