@@ -1,6 +1,8 @@
 package com.teslasoft.hackerapp.component
 
 import android.app.Activity
+import android.content.Intent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -25,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.teslasoft.hackerapp.AuthActivity
 import com.teslasoft.hackerapp.MainActivity
 import com.teslasoft.hackerapp.R
 
@@ -33,6 +36,7 @@ import com.teslasoft.hackerapp.R
 @Composable
 fun AppBar(
     activity: Activity? = null,
+    accountAccess: Boolean? = true
     ) {
 
     CenterAlignedTopAppBar(
@@ -71,16 +75,23 @@ fun AppBar(
             }
         },
         actions = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Localized description",
-                    tint = if(activity is MainActivity)MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.outline
-                )
+            if(accountAccess == true) {
+                IconButton(onClick = {
+                    activity?.startActivity(
+                        Intent(
+                            activity,
+                            AuthActivity::class.java
+                        )
+                    )
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "Localized description",
+                        tint = if (activity is MainActivity) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.outline
+                    )
+                }
             }
         }
-        //,
-        // scrollBehavior = scrollBehavior
 
     )
 }

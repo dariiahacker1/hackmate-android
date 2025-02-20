@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.HackerApp" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.HackerApp" parent="@style/Theme.Material3.DayNight" />
+
+    <style name="Theme.Dialog" parent="@style/ThemeOverlay.Material3.Dialog.Alert"/>
 
     <style name="Theme.Transparent" parent="android:Theme">
         <item name="android:windowIsTranslucent">true</item>

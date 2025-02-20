@@ -28,8 +28,6 @@ class TermsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         firebaseDatabase = FirebaseDatabase.getInstance()
 
-        //initializeDatabaseWithTerms()
-
         enableEdgeToEdge()
         setContent {
             HackerAppTheme {
@@ -42,18 +40,13 @@ class TermsActivity : ComponentActivity() {
     @Composable
     fun TermsActivityContent() {
         val termsList = remember { mutableStateListOf<Term>() }
-     //   val isLoading = remember { mutableStateOf(true) }
 
         LaunchedEffect(Unit) {
             getTerms(termsList)
-          //  isLoading.value = false
         }
 
-//        if (isLoading.value) {
-//            CircularProgressIndicator()
-//        } else {
-            TermsScreen(this, termsList = termsList)
-                //     }
+        TermsScreen(this, termsList = termsList)
+
     }
 
     fun getTerms(termsList: MutableList<Term>) {
@@ -121,7 +114,10 @@ class TermsActivity : ComponentActivity() {
 
     fun initializeDatabaseWithTerms() {
         val terms = listOf(
-           Pair("Cache", "Pronounced cash, a special high-speed storage mechanism. It can be either a reserved section of main memory or an independent high-speed storage device. Two types of caching are commonly used in personal computers: memory caching and disk caching.")
+            Pair(
+                "Cache",
+                "Pronounced cash, a special high-speed storage mechanism. It can be either a reserved section of main memory or an independent high-speed storage device. Two types of caching are commonly used in personal computers: memory caching and disk caching."
+            )
         )
 
         for ((name, description) in terms) {

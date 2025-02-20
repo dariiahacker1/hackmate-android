@@ -21,23 +21,34 @@ class NewsViewModel : ViewModel() {
 
     private fun fetchCybersecurityNews() {
 
-        val newsApiClient = NewsApiClient(Constant.apiKey)
-        val request = EverythingRequest.Builder().q("cybersecurity").language("en").build()
+        // val apiKey = KeyKeeper.getNewsKey()
 
-        newsApiClient.getEverything(request, object : NewsApiClient.ArticlesResponseCallback {
-            override fun onSuccess(response: ArticleResponse?) {
-                response?.articles?.let {
-                    _articles.postValue(it)
-                }
+        KeyKeeper.getNewsKey { apiKey ->
+            if (apiKey.isNotEmpty()) {
+
+                val newsApiClient = NewsApiClient(apiKey)
+                val request = EverythingRequest.Builder().q("cybersecurity").language("en").build()
+
+                newsApiClient.getEverything(
+                    request,
+                    object : NewsApiClient.ArticlesResponseCallback {
+                        override fun onSuccess(response: ArticleResponse?) {
+                            response?.articles?.let {
+                                _articles.postValue(it)
+                            }
+                        }
+
+                        override fun onFailure(throwable: Throwable?) {
+                            if (throwable != null) {
+                                Log.i("NewsApi Response Failed", throwable.localizedMessage)
+                            }
+                        }
+
+                    })
+            } else {
+                Log.e("NewsViewModel", "API Key is empty")
             }
-
-            override fun onFailure(throwable: Throwable?) {
-                if (throwable != null) {
-                    Log.i("NewsApi Response Failed", throwable.localizedMessage)
-                }
-            }
-
-        })
+        }
 
 
     }

@@ -1,8 +1,8 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     id("com.google.gms.google-services")
 }
 
@@ -78,6 +78,10 @@ dependencies {
     implementation(libs.firebase.database.ktx)
     implementation(libs.androidx.junit)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.material.icons.extended)
@@ -89,7 +93,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.zxing.android.embedded)
     implementation(libs.gson)
-
+    implementation(libs.firebase.auth)
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)

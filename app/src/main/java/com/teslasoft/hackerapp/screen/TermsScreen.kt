@@ -7,6 +7,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -78,8 +79,7 @@ fun TermsScreen(activity: Activity? = null, termsList:List<Term>) {
 
                 .fillMaxSize()
                 .defaultMinSize(minHeight = 300.dp)
-                .padding(innerPadding)
-                .padding(start = 16.dp, end = 16.dp),
+                .padding(start = 16.dp, end = 16.dp, top = innerPadding.calculateTopPadding(), bottom = 0.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -136,7 +136,7 @@ fun TermsScreen(activity: Activity? = null, termsList:List<Term>) {
                 LazyColumn(
                     state = lazyListState,
                     verticalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().padding(bottom = 0.dp)
                 ) {
                     items(termsList.sortedBy{it.name}) { term ->
                         TermCard(term = term)

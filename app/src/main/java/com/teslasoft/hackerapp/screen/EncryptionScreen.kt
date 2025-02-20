@@ -45,8 +45,6 @@ import com.teslasoft.hackerapp.component.AppBar
 @Composable
 fun EncryptionScreen(activity: Activity? = null) {
 
-    val context = LocalContext.current
-
     val plainText = remember { mutableStateOf("") }
     val encryptedText = remember { mutableStateOf("") }
     val encryptionKey = remember { mutableStateOf("") }
@@ -127,9 +125,6 @@ fun EncryptionScreen(activity: Activity? = null) {
                 )
 
                 OutlinedTextField(
-//                    leadingIcon = {
-//                        Icon(painter = painterResource(R.drawable.baseline_key_24), contentDescription = null)
-//                    },
                     shape = RoundedCornerShape(16.dp),
                     value = encryptionKey.value,
                     onValueChange = { encryptionKey.value = it },
@@ -158,7 +153,7 @@ fun EncryptionScreen(activity: Activity? = null) {
                         onClick = {
 
                             if (encryptionKey.value == "" || plainText.value == "") {
-                                Toast.makeText(context, "Missing input(s)", Toast.LENGTH_SHORT)
+                                Toast.makeText(activity, "Missing input(s)", Toast.LENGTH_SHORT)
                                     .show()
                             } else {
                                 encryptedText.value =
@@ -182,7 +177,7 @@ fun EncryptionScreen(activity: Activity? = null) {
                         onClick = {
 
                             if (encryptionKey.value == "" || encryptedText.value == "") {
-                                Toast.makeText(context, "Missing input(s)", Toast.LENGTH_SHORT)
+                                Toast.makeText(activity, "Missing input(s)", Toast.LENGTH_SHORT)
                                     .show()
                             } else {
                                 plainText.value =
